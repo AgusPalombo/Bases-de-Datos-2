@@ -1,0 +1,490 @@
+Bases de datos 2
+BDs Relacionales: 
+●	Utilizar un modelo de datos simple (basado en tablas y relaciones entre tablas)
+●	Ofrecer herramientas para garantizar la integridad de datos y la consistencia de la información (ACID)
+●	Utilizar un lenguaje de interrogación estándar, sim-ple y potente 
+●	Proporcionar utilidades para asegurar el acceso, manipulación y la privacidad de los datos
+●	Ofrecer utilidades para la auditoría y recuperación de datos
+●	Garantizar la independencia del esquema lógico y físico
+
+Cual es el problema de las mismas:
+●	El tiempo de respuesta, especialmente si existen actúa-lizaciones
+●	Los DBMS y en especial los RDBMS utilizan el concepto de transacciones en las actualizaciones para garantizar la integridad de la información.
+●	El costo de trabajar con transacciones.
+●	La utilización de transacciones tiende a implementar ACID.
+¿Y por que es necesario ACID?
+●	Una característica de las bases de datos es la reducción de la redundancia y aumento de la consistencia y la integridad de la información y para asegurarlo aplica ACID.
+
+ACID
+1.	Atomicidad: Se hace TODO o no se hace NADA.
+2.	Consistencia: Paso de un estado consistente a otro.
+3.	Aislamiento: Las operaciones que lleva a cabo una transacción durante su ciclo de vida solo son conocidas por la transacción.
+4.	Durabilidad: Una vez que las operaciones son realizadas no hay posibilidad de revertirlas (A menos que sea con una nueva transacción).
+Bloqueos
+Un bloqueo es un mecanismo que impide las interacciones destructivas entre transacciones que acceden a un conjunto comun de datos.
+Desempeñan un papel crucial en el manejo de la concurrencia y la consistencia de la base de datos.
+Existen los compartidos y los exclusivos, el primero es sobre transacciones y el 2do sobre recursos. Estos afectan a la escritura y la lectura
+
+Deadlock: Cuando dos o mas users se quedan esperando recursos retenidos por los propios usuarios (otros)
+ 
+Granularidad: Especifica cuando la info se bloqueará por cada operación de bloqueo que se realice
+
+Las BDs relacionales presentan los siguientes problemas: 
+1.	Gestión de log
+2.	Control de concurrencia
+3.	Protocolos de transacciones distribuidas
+4.	Administración de buffers.
+5.	Reglas de Integridad y Seguridad complejas.
+6.	Malos diseños (bastante frecuente)
+
+La solución a todo esto fueran las BDs no relacionales, creadas por distintas empresas para solucionar sus problemas, el gran problema es que no hay un modelo que estandarice estos productos
+
+BIG DATA:  se refiere a conjuntos de datos extremadamente grandes y complejos que requieren de técnicas específicas para su análisis y procesamiento. Estos conjuntos de datos son tan grandes que las herramientas de procesamiento de datos tradicionales a menudo no son adecuadas para manejarlos.
+Se basa en las 7 Vs: 
+1.	VOLUMEN
+2.	VELOCIDAD
+3.	VARIEDAD
+4.	VIABILIDAD
+5.	VERACIDAD
+6.	VISUALIZACION
+7.	VALOR
+
+MAP REDUCE:
+MapReduce es un modelo de programación y un paradigma de procesamiento de datos ampliamente utilizado en el ámbito de la computación distribuida y el procesamiento de grandes volúmenes de datos. 
+
+1.	Fase Map:
+En esta fase, los datos se dividen en fragmentos más pequeños llamados "splits".
+Luego, se aplica una función de mapeo (map) a cada split de datos. Esta función toma los datos de entrada y los convierte en un conjunto de pares clave-valor.
+Cada función de mapeo produce un conjunto de resultados intermedios.
+2.	Fase Shuffle y Sort:
+En esta fase, los resultados intermedios se agrupan por clave. Es decir, todos los valores asociados con la misma clave se agrupan juntos.
+Además, los resultados intermedios se ordenan para facilitar el proceso de reducción.
+
+3.	Fase Reduce:
+En esta fase, se aplica una función de reducción (reduce) a cada grupo de resultados intermedios con la misma clave.
+Esta función de reducción toma la clave y todos los valores asociados con esa clave como entrada y produce un conjunto más pequeño de valores.
+
+4.	Fase Finalización:
+Finalmente, los resultados reducidos se escriben en almacenamiento persistente, como un sistema de archivos distribuido.
+
+El proceso de MapReduce se ejecuta en un clúster de computadoras, donde cada nodo del clúster realiza tareas de mapeo y reducción en paralelo, lo que permite el procesamiento eficiente de grandes conjuntos de datos.
+
+SQL VS NoSQL
+Se diferencian del un RDBMS por:
+⮚	Esquema prescindible – no estructurado o flexible
+⮚	Desnormalización
+⮚	Escalan horizontalmente de forma natural
+⮚	No garantizan ACID
+
+Ventajas de SQL
+●	Consistencia y estructura definida
+●	Soporte para consultas complejas 
+●	Transacciones ACID
+●	Integridad referencial: significa que las relaciones entre diferentes tablas están definidas y se mantienen automáticamente.
+
+Desventajas de SQL:
+●	Escala vertical limitada
+●	Rigidez del esquema
+
+Ventajas de NoSQL:
+●	Escalabilidad horizontal
+●	Flexibilidad del esquema
+●	Alto rendimiento en operaciones de lectura y escritura
+
+Desventajas de NoSQL:
+●	Falta de soporte para consultas complejas
+●	Consistencia eventual
+●	Menor madurez y soporte
+
+Ambas son tipos de Almacenamiento Estructurado, la principal diferencia radica en cómo guardan los datos.
+⮚	En Relacional separaríamos la información en diferentes tablas y luego ejecutaríamos el JOIN.
+⮚	En NoSQL se guarda la factura como una unidad, sin separar los datos.
+
+Principios de selección
+Las BD NoSQL no siempre son la mejor solución
+Si los datos son transaccionales un RDBMS sería la opción correcta.
+Las BD NoSQL son una solución si:
+⮚	El control transaccional ACID no es importante.
+⮚	Los JOINs tampoco lo son. Se persigue la desnormalización.
+⮚	Algunos elementos relacionales son necesarios y aconsejables como las claves (keys).
+⮚	Necesidad de gran capacidad de escalabilidad y de replicación en múltiples servidores (Los RDBMS también pueden hacerlo, pero a menor escala y mayor costo operacional).
+
+Arquitectura:
+En general son de consistencia débil, consistencia visual o transacciones restringidas a elementos simples de datos.
+Emplean una arquitectura distribuida, con datos redundantes en varios servidores
+Ofrecen arrays asociativos o estructuras clave-valor
+Las consultas generalmente son por Keys o índices, y las mas complejas se hacen mediante una infraestructura de procesamiento externo
+
+Estas bases se encuentran operativas todo el tiempo, los datos no precisan de ser consistentes todo el tiempo y por lo tanto se asegura la consistencia solo por un tiempo
+⮚	Consistencia débil – Datos obsoletos.
+⮚	Primero la disponibilidad
+⮚	Respuestas aproximadas.
+⮚	Agresivamente optimista, disponible, aunque fallen nodos.
+
+Se aplica en:
+⮚	Servicios Web2.0 (redes sociales, blogs, etc.)
+⮚	Aplicaciones IoT
+⮚	Almacenamiento de perfiles sociales
+⮚	Juegos sociales
+⮚	Gestión de contenidos
+
+Ventajas
+⮚	Masivamente escalables
+⮚	Alta disponibilidad
+⮚	Bajo coste comparado con soluciones similares de la misma escala
+⮚	Elasticidad predecible
+⮚	Esquema flexible, adecuado para datos dispersos y semi-estructurados
+
+Inconvenientes
+⮚	Capacidad de interrogación limitada
+⮚	Consistencia eventual 🡪 su programación no es intuitiva
+⮚	No estandarizado 🡪 no es portable
+⮚	El desarrollo de aplicaciones clientes más complejo
+⮚	Carecen de herramientas de control de acceso (seguridad)
+
+
+ 
+Arquitecturas de distribución:
+BDs distribuidas:  colección de múltiples bases de datos interrelacionadas lógicamente, distribuidas sobre una red de computadores y manejadas a través de un Sistema de Gestión de Bases de Datos Distribuidas
+●	Mezcla de tecnologías 
+●	Tecnología de base de datos. 
+●	Tecnología de redes y comunicación de datos. 
+●	Las organizaciones ya no están interesadas en bases de datos centralizadas gigantes. 
+●	Descentralización de procesos (a nivel del sistema).
+●	Integración de la información dentro de Bases de Datos ubicadas geográficamente en distintos lugares.
+
+ 
+
+Cluster: Grupo de servidores independientes interconectados a través de una red dedicada que trabajan como un único recurso de procesamiento.
+●	Ventejas:
+o	Performance
+o	Tolerancia a fallas
+o	Distribuye la carga de servers
+o	Servidor active y stand by
+Escalamiento vertical:
+●	Escalamiento dentro de un mismo servidor
+●	Implica incrementar la capacidad de un Servidor 
+●	Es el más simple y continúa siendo usado hoy
+●	Elimina las complejidades de distribuir datos en diferentes servidores
+●	Algunas bases de datos suelen presentar sólo la posibilidad de escalar verticalmente
+
+
+
+Arquitectura Share Nothing:
+●	Es una arquitectura distribuida en la que cada nodo es independiente y autosuficiente.
+●	Presenta alta escalabilidad.
+●	Los datos se pueden repartir en muchos nodos.
+●	No existe SPOF (Single Point Of Failure).
+Tecnologías: Grids , HADOOP
+
+Consistencia: implica mantener la información uniforme mientras se mueve a lo largo de una red o varias aplicaciones.
+●	A nivel de bases de datos esto implica que la información sea válida de acuerdo a reglas o modelos predefinidos
+
+Disponibilidad:  Un sistema se define como de alta disponibilidad si garantiza respuestas para todos los requerimientos que recibe, aún inclusive si uno o más nodos se encuentran caídos .
+Para lograr la disponibilidad de los datos en un cluster los datos deben replicarse a una cantidad de nodos, y cada nodo debe estar listo para reclamar transformarse en maestro en cualquier momento, ante la caída del mismo.
+
+Particionamiento: Es cuando los nodos se separan físicamente y en un lapso de tiempo en el que no se pueden alcanzar por problemas varios, se lo llama “partición de red”.
+Durante la partición los nodos deben servir para escritura y lectura
+
+
+En las no SQL aparece el teorema CAP (CAP son las siglas de Consistencia – Disponibilidad – Particionamiento) o Consistencia Eventual
+Teorema CAP: desarrollado por Eric brewer como una conjetura y formalizado en 2002 por Gilbert y Lynch en el MIT, se indicaba que era imposible tener un sistema con las 3 caracteristicas anteriores.
+●	El sistema debe proveer dos de los 3 antes mencionados
+●	Se deben tomar decisiones sobre cual de los 3 será sacrificado
+●	Las NoSQL utilizan este tipo de enfoque
+
+Espacio N/A:
+1.	Contradice al teorema CAP
+2.	No existe BD que cumpla con las 3
+CA:
+1.	Privilegia consistencia y disponibilidad, aparecen en las BDs relacionales y las de grafos
+2.	No existe distribución de datos, no hay partición
+CP:
+1.	Se privilegia tolerancia a particiones y consistencia
+2.	Consistencia fuerte pero baja disponibilidad
+3.	En una partición de red pueden no responder algunas consultas
+AP:
+1.	Alta disponibilidad y T . a particiones
+2.	Estos motores ofrecen alguna forma de consistencia aunque es relativa
+3.	Ofrecen replicación de datos pero no consistencia en 2 > nodos
+
+Parametros N, R y W:
+1.	N: cantidad de nodos en cluster
+2.	R: cantidad de replicaciones necesarias para que una lectura sea exitosa
+3.	W: valor por defecto para un cluster completo, en algunas BD = c/u operación de escritura
+W alto = mayor consistencia, mayor falla en nodos y latencia de red
+W bajo =
+●	menor consistencia
+●	 operación exitosa con menor confirmación por parte de los nodos
+●	Menos nodos por lo que hay menor tiempo de red
+●	Las lecturas en replicas pueden devolver datos desactualizados
+
+R alto = alta consistencia, performance afectada, fuerza al cluster a reconciliar datos no actualizados
+
+R bajo = Lectura menos proclive a problemas de disponibilidad y baja latencia
+
+●	Consistencia Por Escrituras
+o	La consistencia por escrituras se determina por los valores W=N y R=1
+
+o	Esta forma establece consistencia fuerte en la escritura con lo que la consistencia en la lectura está garantizada.
+
+o	Modelo utilizado por los RDBMS.
+
+
+o	Garantiza lecturas más rápidas, pero lentifica las escrituras.
+
+ 
+Consistencia Por Lecturas
+o	La consistencia por lecturas se determina por los valores W=1 y R=N
+o	Implica asegurar la escritura a un solo nodo, pero leer todos ellos.
+o	Aunque pueden leerse algunos valores antiguos, se garantiza recuperar el valor más reciente también.
+
+Consistencia Eventual
+o	Si no existen nuevas actualizaciones que se hagan eventualmente a un objeto, todos los accesos van a devolver el valor más actualizado en último término.
+o	Un ejemplo son las actualizaciones a un DNS que se distribuyen en función a caches controlados por tiempo.
+o	Eventualmente el cliente puede ver o no la actualización, la consistencia no está garantizada, aunque existen mecanismos que la intentan maximizar
+
+Consistencia Por Quorums
+o	Cuanto mayor es la cantidad de nodos que se involucran en un requerimiento, más alta es la chance de evitar inconsistencias.
+o	¿Cuántos nodos deben estar involucrados en una operación para obtener cierto grado deseado de consistencia?
+o	Quórum de escritura: W > N/2
+
+
+
+Bases de datos Documentales:
+
+●	Base de datos orientada a documentos o Almacenes de Documentos.
+
+●	Permite almacenar, recuperar y administrar datos estructurados o semiestructurados.
+
+●	El término "documento" puede referirse a un documento de múltiples formatos, pero comúnmente es un archivo de XML o JSON.
+●	El esquema es variable y proporciona mucha más flexibilidad para el modelado de documentos grandes
+●	Almacena cada registro y sus datos asociados en un solo documento conteniendo datos semiestructurados que pueden ser consultados mediante variadas herramientas de consulta.
+●	Los documentos se agrupan en "colecciones", que tienen un concepto similar a una tabla relacional. 
+●	Rendimiento de escritura rápido: Priorizan la escritura por sobre la consistencia
+●	Garantiza escrituras rápidas, incluso ante fallas de hardware o de la red.
+●	Consultas rápidas
+Mongo DB
+●	Los docs en mongo son similares a un JSON
+●	Caracteristicas:
+o	Seguridad: Autenticacion, autorización, encriptado, auditoria,  etc.
+o	Indices: Estructuras de datos que almacenan una pequeña porción del conjunto de datos. Puede devolver datos ordenados y permite coincidencias. El ID evita la redundancia en cierta forma
+▪	Propiedades: únicos, escasos, parciales, TTL
+o	Replicacion: una instancia de mongod es un conjuntop de replicas. Proporciona alta disponibilidad y redundancia.
+
+
+Bases de datos orientadas a objetos
+Son una respuesta a los inconvenientes a la hora de persistir BDs relacionales
+●	Uso de estructuras de datos tan complejas como sea necesario.
+●	Mixean el desarrollo de aplicaciones y la gestión de datos.
+●	Permiten la extensibilidad con nuevos tipos de datos complejos y operaciones arbitrarias sobre ellos.
+●	Lograr una equivalencia al de los lenguajes de programación orientados a objetos, como C++ o Java.
+Se pueden utilizar en extensiones OO de SQL
+Las BDS OO proporcionan una gestión de bases de datos orientadas a objetos a todos los niveles, desde la definición de datos al lenguaje de consulta
+
+Ventajas:
+●	Mayor capacidad de modelado
+●	Ampliabilidad. 
+●	Lenguaje de consulta más expresivo. 
+●	El acceso navegacional desde un objeto es mucho más que el acceso asociativo (join sql).
+●	Mas adecuado para sistemas como el CAD, CASE, OIS, multimedia, etc.
+Desventajas:
+●	Modelo de datos universal. La mayoría de los productos carecen una base teórica.
+●	Experiencia.  No hay mucha gente con experiencia en estas bds
+●	Estándares.  No posee
+●	Competencia. Las RDB tienen una sólida base teórica y muchas herramientas de soporte.
+●	Encapsulamiento. 
+
+ODMG – Object Data Management Group
+●	Propone los siguientes componentes principales de la arquitectura ODMG para una OODB:
+o	Modelo de objetos
+o	Lenguaje de definición de objetos (ODL, Object Definition Language)
+o	Lenguaje de consulta de objetos (OQL, Object Query Language)
+o	Conexión con los lenguajes C++, Smalltalk y Java (al menos)
+
+BASES DE DATOS CLAVE-VALOR
+
+La clave:
+●	Identificador único que le permite acceder al valor asociado con esa clave y debe ser único.
+●	En teoría la clave podría ser cualquier cosa.
+●	Productos como Redis tienen un tamaño de clave máximo permitido es 512 MB. 
+●	Puede usar cualquier secuencia binaria como clave.
+●	Por cuestiones de rendimiento se debe evitar tener una clave demasiado larga.
+
+El valor:
+●	El valor puede ser cualquier cosa.
+●	El valor también podría ser una lista, o incluso otro par clave-valor encapsulado en un objeto.
+●	En algunos se puede especificar el dato 
+
+Ventajas:
+1.	Las bases de datos clave-valor son muy efectivas en la consulta y fáciles de escalar. 
+2.	Al no exigir ningún esquema fijo, se pueden realizar modificaciones en la base de datos mientras se realizan acciones en otras entradas.
+3.	Asimismo, este modelo de base de datos ofrece una gran velocidad de búsqueda gracias a la sencilla conexión entre la clave y el valor. 
+4.	Se utilizan siempre que se requiere una alta velocidad con un gran volumen de datos.
+5.	La información está dispuesta de forma clara. 
+
+Desventajas:
+1.	Solo se puede consultar un valor a través de una clave específica, no contempla otro método de acceso. 
+2.	Las búsquedas complejas sobre un único concepto no están disponibles para recuperar por contenido.
+3.	Si las búsquedas que involucran a mas de un concepto deben hacerse mediante programación en algún lenguaje de programación o de scripting (LUA). 
+
+
+Cuando usarlas
+1.	Almacenar información de sesión
+2.	Perfiles de users o referencias
+3.	Carros de compra
+
+Cuando NO usarlas:
+1.	Consultas que relacionen datos.
+2.	Transacciones multi operación
+3.	Consulta por los valores almacenados dentro del campo valor
+4.	Operaciones que abarcan diferentes conjuntos de datos
+
+VER SI PREGUNTA ALGO CON RESPECTO A LAS CARACTERISTICAS DE REDIS
+
+Bases de datos de grafos (NEO4J)
+●	Consultas que relacionen datos.
+●	Transacciones multi operación
+●	Consulta por los valores almacenados dentro del campo valor
+●	Operaciones que abarcan diferentes conjuntos de datos
+●	Los arcos, aristas o relaciones tienen dirección.
+●	Los nodos están vinculados por relaciones que nos permiten encontrar patrones (trabaja_en, casado_con, etc.).
+●	La organización del grafo nos permite que los datos sean almacenados una vez y luego interpretados de distintas maneras basándonos en sus relaciones
+
+Cuando deberíamos usarlas:
+1.	Redes sociales
+2.	Recomendaciones
+3.	Búsquedas
+
+
+Cuando NO:
+1.	Sistemas que requieren actualizaciones masivas
+2.	Sistemas que requieren de alta distribución
+
+Se usan por sobre las BDs relacionales ya que estas no guardan relaciones entre los datos, solo tablas con IDs
+
+Neo4j:
+●	La edición de Neo4j utilizada determina el número de posibles bases de datos:
+o	Community: una sola base de datos de usuario
+o	Enterprise: múltiples bases de datos de usuarios.
+
+●	Posee consistencia eventual
+
+●	Posibilidad de realizar tareas administrativas: 
+o	Back up
+o	Restore
+o	Actualizaciones
+o	Autrotizacion y autenticacion
+o	Seguridad
+
+●	Ofrece monitoreo:
+o	Metricas, log, consultas y transacciones, conexiones y accesos, estado del cluster y de la base de datos
+
+
+
+1.	Seguridad: los servidores centrales proporcionan una plataforma tolerante a fallos para el procesamiento de transacciones que permanecerá disponible mientras la mayoría de los servidores centrales estén funcionando.
+
+2.	Escala: las réplicas de lectura proporcionan una plataforma enormemente escalable para consultas de gráficos que permite ejecutar cargas de trabajo de gráficos muy grandes en una topología ampliamente distribuida.
+
+3.	Consistencia causal: cuando se invoca, se garantiza que una aplicación cliente leerá al menos sus propias escrituras.
+
+Servidores centrales: Su principal responsabilidad es proteger los datos mediante replicación de todas las transacciones (protocolo Raft).
+
+A medida que aumentan los servidores mayor latencia tendrá la escritura
+
+Bases de datos tabulares
+
+Bases de datos orientadas a columnas, almacenan los datos en bases de datos orientadas a columnas, por lo que pueden tener una cantidad muy grande de las mismas.
+
+SON BUENAS EN
+1.	Gestión de tamaño
+2.	Escrituras masivas orientadas al stream
+3.	Alta disponibilidad
+4.	MapReduce
+
+Almacenan cualquier tipo de datos y pueden registrar eventos, estados de las apps y errores de las mismas
+
+CUANDO NO USARLAS
+1.	Sistema que requieren transacciones ACID para lecturas y escrituras
+2.	Consultas con agregación de datos deben hacerse del lado del cliente
+3.	No es ideal para prototipos tempranos donde no haya seguridad en los patrones de consulta
+
+Cassandra
+●	Esquema dinámico: El esquema que define la estructura de los datos puede cambiar en tiempo de ejecución. 
+
+●	No hay un único punto de fallo: Los datos se replican automáticamente a varios nodos. Perder un nodo no causa la baja del clúster. 
+
+●	Alta disponibilidad
+
+●	Particionado de los datos 
+
+●	Escalabilidad horizontal: Hasta un alto número de máquinas la capacidad de cómputo aumenta linealmente con el número de máquinas. 
+
+●	Capacidad para manejar cientos de gigabytes de datos.
+
+ARQUITECTURA
+Varios nodos independientes comunicados mediante el protocoloP2P, todos intercambian entre si información de manera continua
+El nodo que se conecta al cliente actúa como coordinador entre este y el resto donde están los datos afectados por consulta
+El coordinador determina que nodos responden a la consulta
+
+REPLICACION
+En Cassandra, uno o más nodos de un clúster actúan como réplicas de un dato dado. Si se detecta que algunos de los nodos respondieron con un valor desactualizado, Cassandra devolverá el valor más reciente al cliente.
+●	Nodo: es el lugar donde se almacenan los datos.
+
+●	Data Center: es una colección de nodos relacionados.
+
+●	Clúster: un clúster es un componente que contiene uno o más centros de datos.
+
+●	Commit log : el registro de confirmación (Commit log) es un mecanismo de recuperación de fallas en Cassandra
+
+●	MemTable: es una estructura de datos residente en la memoria. 
+
+●	SSTable: es un archivo de disco en donde se guarda el contenido de la MemTable cuando alcanza un valor determinado. 
+
+●	Filtros de Bloom: no son más que algoritmos rápidos, no deterministas, para probar si un elemento es miembro de un conjunto. 
+
+SEGURIDAD
+●	Seguridad a nivel de usuarios: logins con passwords y permisos de gestión y administración vía GRANT/REVOKE.
+
+●	Opciones de encriptación tanto entre clientes y clústeres como entre nodos.
+
+●	Ofrece varias opciones de backup. Recomendado hacerlos de forma regular ante errores como los borrados accidentales.
+
+●	Existen herramientas externas (DataStax Enterprise) que ofrecen opciones avanzadas de seguridad como ser autentificación externa, encriptación de tablas, y auditoría de datos.
+
+CONSISTENCIA
+●	Ante la posibilidad de encontrar datos inconsistentes en los nodos a pesar de tombstones, se recomienda realizar tareas rutinarias de mantenimiento; existe una operación llamada repair, que puede utilizarse por parte del usuario para asegurar que todos los nodos son consistentes
+
+Estructura de datos
+●	Columna (Columns): unidad básica de almacenamiento. Consistente en una estructura de tres valores: name, value y timestamp.
+●	Filas o entradas (Rows): conjunto de columnas de una familia con valor asignado.
+●	Familia de Columnas (ColumnFamilies): contenedor de múltiples columnas. Es equivalente a una tabla en el modelo relacional.
+●	Keyspace: es la agrupación de Familia de Columnas, normalmente hay un keyspace por aplicación.
+●	Clúster: las máquinas (nodos) de una instancia de Cassandra. 
+
+
+BIG DATA – HADOOP
+●	Conjunto de tecnologías que han sido creadas para recopilar, analizar y gestionar los datos que generan los usuarios. 
+
+●	Su idea es la de recopilar los datos masivos que son generados en "bruto", y procesarlos para identificar patrones u otro tipo de comportamientos que puedan ayudar a sectores concretos.
+
+Hadoop:
+●	Hadoop básicamente tiene dos componentes principales. 
+
+a.	El primero es un sistema de archivos distribuido Hadoop (HDFS) para el almacenamiento de información distribuida.
+
+b.	La segunda parte es MapReduce para procesamiento distribuido. 
+
+1.	Almacenar y procesar grandes cantidades de cualquier tipo de dato
+2.	Procesamiento
+3.	Tolerancia a fallos
+4.	Flexibilidad
+5.	Bajo coste
+6.	Escalabilidad
+
+MAP REDUCE: componente de procesamiento de hadoop
+MAP: basado en divide y conquista
+Reduce: combina y reduce la cardinalidad, recoge las respuestas en cadas subnodo y las combina en un resultado final
+
+
+
